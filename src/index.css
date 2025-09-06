@@ -2,57 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* Enigma Protocol Design System - Glassmorphism & Apple-inspired aesthetics
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base colors - Clean whites and deep grays */
+    --background: 240 20% 99%;
+    --foreground: 240 10% 3.9%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Glass morphism surfaces */
+    --glass: 240 20% 99% / 0.7;
+    --glass-border: 240 10% 88% / 0.3;
+    --glass-hover: 240 20% 96% / 0.8;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Enigma brand colors - Deep blues with purple accents */
+    --primary: 240 47% 21%;
+    --primary-glow: 243 58% 51%;
+    --primary-light: 243 58% 71%;
+    --primary-foreground: 240 20% 99%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Avalanche-inspired accent */
+    --accent-avalanche: 0 84% 60%;
+    --accent-avalanche-light: 0 84% 70%;
+    --accent-success: 142 76% 36%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Card and surface colors */
+    --card: 240 20% 99% / 0.8;
+    --card-foreground: 240 10% 15%;
+    --card-hover: 240 20% 96% / 0.9;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Input and interactive elements */
+    --input: 240 15% 95% / 0.8;
+    --input-border: 240 10% 88% / 0.4;
+    --input-focus: 243 58% 51% / 0.2;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Popover and overlay */
+    --popover: 240 20% 99% / 0.95;
+    --popover-foreground: 240 10% 15%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Secondary surfaces */
+    --secondary: 240 15% 95%;
+    --secondary-foreground: 240 10% 15%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Muted elements */
+    --muted: 240 10% 92%;
+    --muted-foreground: 240 5% 45%;
 
-    --radius: 0.5rem;
+    /* Status colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 240 20% 99%;
+    --success: 142 76% 36%;
+    --success-foreground: 240 20% 99%;
+    --warning: 43 96% 56%;
+    --warning-foreground: 240 10% 15%;
 
-    --sidebar-background: 0 0% 98%;
+    /* Interactive states */
+    --hover: 240 20% 96% / 0.8;
+    --active: 240 20% 94%;
+    
+    /* Border and outline */
+    --border: 240 10% 88% / 0.4;
+    --ring: 243 58% 51% / 0.3;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Glassmorphism gradients */
+    --gradient-glass: linear-gradient(145deg, hsl(var(--glass)), hsl(var(--glass-hover)));
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 50%, hsl(var(--accent-avalanche)) 100%);
+    
+    /* Shadows for glassmorphism */
+    --shadow-glass: 0 8px 32px 0 hsl(var(--foreground) / 0.05);
+    --shadow-glass-lg: 0 20px 40px -12px hsl(var(--foreground) / 0.08);
+    --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.15);
+    
+    /* Border radius system */
+    --radius: 16px;
+    --radius-sm: 8px;
+    --radius-lg: 24px;
   }
 
   .dark {
@@ -100,6 +127,43 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    background-image: radial-gradient(circle at 20% 80%, hsl(var(--primary-glow) / 0.1) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, hsl(var(--accent-avalanche) / 0.1) 0%, transparent 50%);
+  }
+}
+
+@layer components {
+  /* Glassmorphism utilities */
+  .glass-card {
+    @apply backdrop-blur-md border border-white/20 shadow-lg;
+    background: hsl(var(--glass));
+  }
+  
+  .glass-card-hover {
+    @apply hover:bg-white/[0.08] transition-all duration-300;
+  }
+  
+  .glass-button {
+    @apply backdrop-blur-md border border-white/30 shadow-md hover:shadow-lg;
+    background: linear-gradient(145deg, hsl(var(--glass)), hsl(var(--glass-hover)));
+  }
+  
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+  
+  .hero-gradient {
+    background-image: var(--gradient-hero);
+  }
+  
+  /* Loading states */
+  .loading-pulse {
+    @apply animate-pulse bg-gradient-to-r from-muted via-muted/50 to-muted;
+  }
+  
+  .loading-spinner {
+    @apply animate-spin rounded-full border-2 border-primary/20 border-t-primary;
   }
 }
